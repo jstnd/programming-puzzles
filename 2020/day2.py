@@ -7,7 +7,7 @@ def part1():
 
     for ln in file:
         line = ln.replace(":", "").replace("-", " ").strip("\n").split(" ")
-        if int(line[1]) >= len([i for i, letter in enumerate(line[3]) if letter == line[2]]) >= int(line[0]):
+        if int(line[1]) >= line[3].count(line[2]) >= int(line[0]):
             valid += 1
 
     return valid
