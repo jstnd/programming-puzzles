@@ -18,15 +18,8 @@ def part2():
     valid = 0
 
     for ln in file:
-        temp = 0
-        line = ln.replace(":", "").replace("-", " ").strip("\n").split(" ")
-        if (line[3])[int(line[0]) - 1] == line[2]:
-            temp += 1
-
-        if (line[3])[int(line[1]) - 1] == line[2]:
-            temp += 1
-
-        if temp == 1:
+        line = ln.replace(":", "").replace("-", " ").strip().split()
+        if ((line[3])[int(line[0]) - 1] == line[2]) + ((line[3])[int(line[1]) - 1] == line[2]) == 1:
             valid += 1
 
     return valid
