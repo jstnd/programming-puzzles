@@ -184,7 +184,7 @@ def is_valid_passport(port):
             if not field[1] in eye_colors:
                 return False
         elif field[0] == "pid":
-            if not (len(field[1]) == 9 and field[1].isnumeric()):
+            if not re.match("^\d{9}$", field[1]):
                 return False
 
     return True
