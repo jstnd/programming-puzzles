@@ -11,12 +11,7 @@ def part2(dirs):
 
 def deliver(dirs):
     pos = (0, 0)
-    visited = {pos}
-
-    for d in dirs:
-        visited.add(pos := tuple(map(sum, zip(pos, moves[d]))))
-
-    return visited
+    return set((pos := tuple(map(sum, zip(pos, moves[d])))) for d in dirs) | {(0, 0)}
 
 
 chars = [ch for ch in open("input03.txt").read()]
