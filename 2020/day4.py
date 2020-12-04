@@ -56,6 +56,8 @@ According to the above rules, your improved system would report 2 valid passport
 Count the number of valid passports - those that have all required fields.
 Treat cid as optional. In your batch file, how many passports are valid?
 
+Your puzzle answer was 256.
+
 --- Part Two ---
 The line is moving more quickly now, but you overhear airport security talking about how passports with
 invalid data are getting through. Better add some data validation, quick!
@@ -127,6 +129,8 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
 
 Count the number of valid passports - those that have all required fields and valid values.
 Continue to treat cid as optional. In your batch file, how many passports are valid?
+
+Your puzzle answer was 198.
 
 https://adventofcode.com/2020/day/4
 """
