@@ -106,7 +106,7 @@ def part2(lns, w, b):
 
 
 def main():
-    with open("day3input.txt") as f:
+    with open("input03.txt") as f:
         lines = [ln.strip() for ln in f.readlines()]
 
     width = len(lines[0])

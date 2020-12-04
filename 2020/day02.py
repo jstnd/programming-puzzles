@@ -56,7 +56,7 @@ https://adventofcode.com/2020/day/2
 
 
 def part1():
-    file = open("day2input.txt", "r")
+    file = open("input02.txt", "r")
     valid = 0
 
     for ln in file:
@@ -68,7 +68,7 @@ def part1():
 
 
 def part2():
-    file = open("day2input.txt", "r")
+    file = open("input02.txt", "r")
     valid = 0
 
     for ln in file:

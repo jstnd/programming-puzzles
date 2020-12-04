@@ -63,7 +63,7 @@ def part2(list, num_set):
 
 
 def main():
-    with open("day1input.txt") as f:
+    with open("input01.txt") as f:
         numbers = [int(n) for n in f.readlines()]
 
     # set for O(1) lookup
