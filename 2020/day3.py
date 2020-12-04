@@ -85,13 +85,10 @@ def traverse(list, w, b, right, down):
     trees = 0
 
     while position[0] < b:
-        if position[1] >= w:
-            position[1] -= w
-
         trees += (list[position[0]])[position[1]] == "#"
 
         position[0] += down
-        position[1] += right
+        position[1] = (position[1] + right) % w
 
     return trees
 
