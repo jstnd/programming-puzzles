@@ -50,8 +50,6 @@ How many passwords are valid according to the new interpretation of the policies
 https://adventofcode.com/2020/day/2
 """
 
-import time
-
 
 def part1():
     file = open("day2input.txt", "r")
@@ -78,11 +76,8 @@ def part2():
 
 
 def main():
-    start = time.time()
-    print(f"Part 1: {part1()}; Time: {time.time() - start}")
-
-    start = time.time()
-    print(f"Part 2: {part2()}; Time: {time.time() - start}")
+    print(part1())
+    print(part2())
 
 
 if __name__ == "__main__":

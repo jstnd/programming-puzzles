@@ -44,8 +44,6 @@ In your expense report, what is the product of the three entries that sum to 202
 https://adventofcode.com/2020/day/1
 """
 
-import time
-
 
 def part1(list, num_set):
     for i in range(len(list)):
@@ -67,13 +65,8 @@ def main():
     # set for O(1) lookup
     number_set = set(n for n in numbers)
 
-    # part 1
-    start = time.time()
-    print(f"Part 1: {part1(numbers, number_set)}; Time: {time.time() - start}")
-
-    # part 2
-    start = time.time()
-    print(f"Part 2: {part2(numbers, number_set)}; Time: {time.time() - start}")
+    print(part1(numbers, number_set))
+    print(part2(numbers, number_set))
 
 
 if __name__ == "__main__":
