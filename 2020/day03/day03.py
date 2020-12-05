@@ -1,3 +1,6 @@
+import math
+
+
 def traverse(list, w, b, right, down):
     position = [0, 0]
     trees = 0
@@ -11,18 +14,10 @@ def traverse(list, w, b, right, down):
     return trees
 
 
-def part1(lns, w, b):
-    return traverse(lns, w, b, 3, 1)
-
-
-def part2(lns, w, b):
-    return traverse(lns, w, b, 1, 1) * traverse(lns, w, b, 3, 1) * traverse(lns, w, b, 5, 1) * traverse(lns, w, b, 7, 1) * traverse(lns, w, b, 1, 2)
-
-
 lines = [ln.strip() for ln in open("input03.txt").readlines()]
 
 width = len(lines[0])
 bottom = len(lines)
 
-print(part1(lines, width, bottom))  # 162
-print(part2(lines, width, bottom))  # 3064612320
+print(traverse(lines, width, bottom, 3, 1))  # part 1 - 162
+print(math.prod(traverse(lines, width, bottom, r, d) for r, d in [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]))  # part 2 - 3064612320
