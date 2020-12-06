@@ -11,10 +11,8 @@ def part2(list, num_set):
                 return list[i] * list[j] * (2020 - list[i] - list[j])
 
 
-numbers = [int(n) for n in open("input01.txt").readlines()]
-
-# set for O(1) lookup
-number_set = set(n for n in numbers)
+numbers = list(map(int, open("input01.txt").readlines()))
+number_set = set(numbers)  # set for O(1) lookup
 
 print(part1(numbers, number_set))  # 1019371
 print(part2(numbers, number_set))  # 278064990
