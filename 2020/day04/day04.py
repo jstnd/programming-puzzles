@@ -53,20 +53,6 @@ def is_valid_passport(port):
     return True
 
 
-f = open("input04.txt", "r")
-
-passports = []
-curr = ""
-
-for ln in f:
-    if ln == "\n":
-        passports.append(curr)
-        curr = ""
-        continue
-
-    curr += ln.strip() + " "
-
-passports.append(curr)  # add final passport
-
+passports = [p.replace("\n", " ") for p in open("input04.txt").read().split("\n\n")]
 print(part1(passports))  # 256
 print(part2(passports))  # 198

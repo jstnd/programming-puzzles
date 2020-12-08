@@ -26,7 +26,7 @@ def handle(cmds, part):
     return sum(map(sum, lights))
 
 
-commands = [ln.strip().replace("turn", "").replace("through", "").split() for ln in open("input06.txt").readlines()]
+commands = [ln.strip().replace("turn", "").replace("through", "").split() for ln in open("input06.txt")]
 
 print(handle(commands, 1))  # part 1 - 543903
 print(handle(commands, 2))  # part 2 - 14687245

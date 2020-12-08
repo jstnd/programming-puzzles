@@ -18,7 +18,7 @@ def find_repeat(string):
     return False
 
 
-strings = [ln.strip() for ln in open("input05.txt").readlines()]
+strings = list(map(str.strip, open("input05.txt")))
 
 print(len([s for s in strings if sum(s.count(c) for c in "aeiou") >= 3 and sum(s.count(c * 2) for c in "abcdefghijklmnopqrstuvwxyz") >= 1 and sum(s.count(c) for c in {"ab", "cd", "pq", "xy"}) == 0]))  # part 1 - 255
 print(len([s for s in strings if re.search(r"(.*[aeiou]){3}", s) and re.search(r"(.)\1", s) and not re.search(r"(ab|cd|pq|xy)", s)]))  # regex version
