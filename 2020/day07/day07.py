@@ -1,6 +1,6 @@
 from collections import Counter
 
-inp = {(b := ln.replace(" bags", "").replace(" bag", "").split(" contain "))[0]: {c[2::]: int(c[0]) for c in b[1].strip().replace(".", "").split(", ") if c != "no other"} for ln in open("input07.txt").readlines()}
+inp = {(b := ln.replace(" bags", "").replace(" bag", "").split(" contain "))[0]: {c[2::]: int(c[0]) for c in b[1].strip().strip(".").split(", ") if c != "no other"} for ln in open("input07.txt").readlines()}
 
 
 def part1(prev):
