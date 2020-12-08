@@ -14,7 +14,7 @@ def traverse(list, w, b, right, down):
     return trees
 
 
-lines = [ln.strip() for ln in open("input03.txt").readlines()]
+lines = list(map(str.strip, open("input03.txt")))
 
 width = len(lines[0])
 bottom = len(lines)
