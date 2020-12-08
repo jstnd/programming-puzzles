@@ -8,20 +8,11 @@ def handle(cmds, part):
         for y in range(coord1[0], coord2[0] + 1):
             for x in range(coord1[1], coord2[1] + 1):
                 if c[0] == "on":
-                    if part == 1:
-                        lights[y][x] = 1
-                    else:
-                        lights[y][x] += 1
+                    lights[y][x] = 1 if part == 1 else lights[y][x] + 1
                 elif c[0] == "off":
-                    if part == 1:
-                        lights[y][x] = 0
-                    else:
-                        lights[y][x] -= 1 if lights[y][x] > 0 else 0
+                    lights[y][x] -= lights[y][x] if part == 1 else 1 if lights[y][x] > 0 else 0
                 else:
-                    if part == 1:
-                        lights[y][x] = int(not lights[y][x])
-                    else:
-                        lights[y][x] += 2
+                    lights[y][x] = int(not lights[y][x]) if part == 1 else lights[y][x] + 2
 
     return sum(map(sum, lights))
 
