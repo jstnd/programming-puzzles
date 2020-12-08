@@ -1,18 +1,19 @@
-def part1(list, num_set):
-    for i in range(len(list)):
-        if 2020 - list[i] in num_set:
-            return list[i] * (2020 - list[i])
+nums = list(map(int, open("input01.txt")))
+num_set = set(nums)  # set for O(1) lookup
 
 
-def part2(list, num_set):
-    for i in range(len(list) - 1):
-        for j in range(i + 1, len(list)):
-            if 2020 - list[i] - list[j] in num_set:
-                return list[i] * list[j] * (2020 - list[i] - list[j])
+def part1():
+    for i in range(len(nums)):
+        if 2020 - nums[i] in num_set:
+            return nums[i] * (2020 - nums[i])
 
 
-numbers = list(map(int, open("input01.txt")))
-number_set = set(numbers)  # set for O(1) lookup
+def part2():
+    for i in range(len(nums) - 1):
+        for j in range(i + 1, len(nums)):
+            if 2020 - nums[i] - nums[j] in num_set:
+                return nums[i] * nums[j] * (2020 - nums[i] - nums[j])
 
-print(part1(numbers, number_set))  # 1019371
-print(part2(numbers, number_set))  # 278064990
+
+print(part1())  # 1019371
+print(part2())  # 278064990
