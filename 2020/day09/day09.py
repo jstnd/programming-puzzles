@@ -1,4 +1,4 @@
-nums = list(map(int, open("input09.txt").read().split()))
+nums = [int(n) for n in open("input09.txt")]
 
 
 def find(index, number):
@@ -9,15 +9,15 @@ def find(index, number):
     return False
 
 
-print(next((f := nums[i]) for i in range(26, len(nums)) if not find(i, nums[i])))  # part 1
+print(next((fin := (i, n))[1] for i, n in enumerate(nums[25:], start=25) if not find(i, n)))  # part 1 - 36845998
 
-for i in range(nums.index(f)):  # part 2
+for i in range(fin[0]):  # part 2 - 4830226
     curr = []
     j = i
-    while sum(curr) < f:
+    while sum(curr) < fin[1]:
         curr.append(nums[j])
         j += 1
 
-    if sum(curr) == f:
+    if sum(curr) == fin[1]:
         print(curr[0] + curr[-1])
         break
