@@ -1,11 +1,12 @@
+import itertools
+
 nums = [int(n) for n in open("input09.txt")]
 
 
 def find(index, number):
-    for i in range(index - 26, index - 1):
-        for j in range(i + 1, index):
-            if nums[i] + nums[j] == number:
-                return True
+    for c in itertools.combinations(nums[index - 25: index], 2):
+        if c[0] + c[1] == number:
+            return True
     return False
 
 
@@ -19,5 +20,5 @@ for i in range(fin[0]):  # part 2 - 4830226
         j += 1
 
     if sum(curr) == fin[1]:
-        print(curr[0] + curr[-1])
+        print(min(curr) + max(curr))
         break
