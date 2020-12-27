@@ -17,5 +17,5 @@ def part2():
             return r[1]
 
 
-print(part1())
-print(part2())
+print(part1())  # part 1 - 158835
+print(part2())  # part 2 - 993
