@@ -25,5 +25,5 @@ def part2():
     return "".join(p)
 
 
-print("".join(part1()))
-print(part2())
+print("".join(part1()))  # part 1 - d4cd2ee1
+print(part2())  # part 2 - f2c730e5
