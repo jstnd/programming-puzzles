@@ -15,16 +15,10 @@ def part1():
 
 
 def part2():
-    def inverse(b, i):
-        multi = 1
-        while (b * multi) % i != 1:
-            multi += 1
-        return multi
-
     buses = inp[1:]
     m = math.prod(i for i in buses if i != 0)
     M = [m // i if i != 0 else i for i in buses]
-    y = [inverse(M[i], n) if n != 0 else n for i, n in enumerate(buses)]
+    y = [pow(M[i], -1, n) if n != 0 else n for i, n in enumerate(buses)]
     return sum((n - i) * M[i] * y[i] for i, n in enumerate(buses) if n != 0) % m
 
 
