@@ -1,6 +1,6 @@
 from collections import Counter
 
-inp = list(map(str.strip, open("06.txt")))
+inp = list(map(str.strip, open("in06.txt")))
 
 
 def run(part):
