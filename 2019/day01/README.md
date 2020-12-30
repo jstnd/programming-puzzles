@@ -4,8 +4,6 @@ Santa has become stranded at the edge of the Solar System while delivering prese
 
 Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants **one star**. Good luck!
 
-## Part One
-
 The Elves quickly load you into a spacecraft and prepare to launch.
 
 At the first Go / No Go poll, every Elf is Go until the Fuel Counter-Upper. They haven't determined the amount of fuel required yet.

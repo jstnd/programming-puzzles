@@ -1,6 +1,6 @@
 import itertools
 
-inp = [ln.strip().split(" = ") for ln in open("i14.txt")]
+inp = [ln.strip().split(" = ") for ln in open("in14.txt")]
 
 
 def bitmask1(bn, mask):
