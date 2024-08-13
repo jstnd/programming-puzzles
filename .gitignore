@@ -1,2 +1,6 @@
+# python
 .idea/
 venv/
+
+# rust
+target/
