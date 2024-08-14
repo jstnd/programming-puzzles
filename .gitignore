@@ -4,3 +4,4 @@ venv/
 
 # rust
 target/
+.env
