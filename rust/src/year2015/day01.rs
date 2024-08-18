@@ -3,25 +3,14 @@ pub fn get_input() -> String {
 }
 
 pub fn part1(input: &str) -> i32 {
-    input
-        .chars()
-        .map(|c| match c {
-            '(' => 1,
-            ')' => -1,
-            _ => 0,
-        })
-        .sum()
+    input.bytes().map(|b| if b == b'(' { 1 } else { -1 }).sum()
 }
 
 pub fn part2(input: &str) -> i32 {
     input
-        .chars()
-        .scan(0, |state, c| {
-            *state += match c {
-                '(' => 1,
-                ')' => -1,
-                _ => 0,
-            };
+        .bytes()
+        .scan(0, |state, b| {
+            *state += if b == b'(' { 1 } else { -1 };
 
             Some(*state)
         })
