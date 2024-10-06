@@ -24,4 +24,5 @@ fn main() {
     solution!(year2015, day01);
     solution!(year2015, day02);
     solution!(year2015, day03);
+    solution!(year2015, day04);
 }
