@@ -3,10 +3,10 @@
 
 extern crate test;
 
-macro_rules! benchmark {
+macro_rules! benchmark_aoc {
     ($year:tt, $day:tt) => {
         mod $day {
-            use aoc::$year::$day::*;
+            use puzzles::aoc::$year::$day::*;
             use test::Bencher;
 
             #[bench]
@@ -24,9 +24,11 @@ macro_rules! benchmark {
     };
 }
 
-mod year2015 {
-    benchmark!(year2015, day01);
-    benchmark!(year2015, day02);
-    benchmark!(year2015, day03);
-    benchmark!(year2015, day04);
+mod aoc {
+    mod year2015 {
+        benchmark_aoc!(year2015, day01);
+        benchmark_aoc!(year2015, day02);
+        benchmark_aoc!(year2015, day03);
+        benchmark_aoc!(year2015, day04);
+    }
 }
