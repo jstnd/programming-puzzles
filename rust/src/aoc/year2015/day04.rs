@@ -30,10 +30,8 @@ fn search(key: &str, part: u8) -> i32 {
             if hash[0] == 0 && hash[1] == 0 && hash[2] >> 4 == 0 {
                 return i;
             }
-        } else {
-            if hash.starts_with(&[0, 0, 0]) {
-                return i;
-            }
+        } else if hash.starts_with(&[0, 0, 0]) {
+            return i;
         }
     }
 
