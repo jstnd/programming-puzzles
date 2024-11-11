@@ -2,10 +2,6 @@ use std::collections::HashSet;
 
 use crate::util::point::Point;
 
-pub fn get_input() -> String {
-    crate::util::input::get_aoc_input(2015, 3)
-}
-
 pub fn part1(input: &str) -> i32 {
     deliver(input, 1)
 }

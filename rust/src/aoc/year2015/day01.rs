@@ -1,7 +1,3 @@
-pub fn get_input() -> String {
-    crate::util::input::get_aoc_input(2015, 1)
-}
-
 pub fn part1(input: &str) -> i32 {
     input.bytes().map(|b| if b == b'(' { 1 } else { -1 }).sum()
 }

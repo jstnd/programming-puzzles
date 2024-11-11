@@ -1,6 +1,8 @@
 macro_rules! solution_aoc {
     ($year:tt, $day:tt) => {
-        let input: String = puzzles::aoc::$year::$day::get_input();
+        let year = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
+        let day = puzzles::util::parse::extract_integer(stringify!($day)) as u8;
+        let input: String = puzzles::util::input::get_aoc_input(year, day);
 
         println!("{} - {}", stringify!($year), stringify!($day));
 
@@ -20,8 +22,8 @@ macro_rules! solution_aoc {
 
 macro_rules! solution_ec {
     ($year:tt, $quest:tt) => {
-        let year: u16 = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
-        let quest: u8 = puzzles::util::parse::extract_integer(stringify!($quest)) as u8;
+        let year = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
+        let quest = puzzles::util::parse::extract_integer(stringify!($quest)) as u8;
 
         println!("{} - {}", stringify!($year), stringify!($quest));
 

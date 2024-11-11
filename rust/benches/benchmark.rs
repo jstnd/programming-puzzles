@@ -11,13 +11,17 @@ macro_rules! benchmark_aoc {
 
             #[bench]
             fn part1_bench(b: &mut Bencher) {
-                let input: String = get_input();
+                let year = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
+                let day = puzzles::util::parse::extract_integer(stringify!($day)) as u8;
+                let input: String = puzzles::util::input::get_aoc_input(year, day);
                 b.iter(|| part1(&input));
             }
 
             #[bench]
             fn part2_bench(b: &mut Bencher) {
-                let input: String = get_input();
+                let year = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
+                let day = puzzles::util::parse::extract_integer(stringify!($day)) as u8;
+                let input: String = puzzles::util::input::get_aoc_input(year, day);
                 b.iter(|| part2(&input));
             }
         }

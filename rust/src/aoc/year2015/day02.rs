@@ -1,7 +1,3 @@
-pub fn get_input() -> String {
-    crate::util::input::get_aoc_input(2015, 2)
-}
-
 pub fn part1(input: &str) -> i32 {
     input
         .lines()
