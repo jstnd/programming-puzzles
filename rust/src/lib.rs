@@ -2,6 +2,7 @@
 
 pub mod util {
     pub mod input;
+    pub mod parse;
     pub mod point;
 }
 

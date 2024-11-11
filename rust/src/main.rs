@@ -20,23 +20,26 @@ macro_rules! solution_aoc {
 
 macro_rules! solution_ec {
     ($year:tt, $quest:tt) => {
+        let year: u16 = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
+        let quest: u8 = puzzles::util::parse::extract_integer(stringify!($quest)) as u8;
+
         println!("{} - {}", stringify!($year), stringify!($quest));
 
-        let input: String = puzzles::util::input::get_ec_input(2024, 1, 1);
+        let input: String = puzzles::util::input::get_ec_input(year, quest, 1);
         let instant = std::time::Instant::now();
         let result = puzzles::ec::$year::$quest::part1(&input);
         let elapsed = instant.elapsed();
 
         println!("    Part 1: {} - {} μs", result, elapsed.as_micros());
 
-        let input: String = puzzles::util::input::get_ec_input(2024, 1, 2);
+        let input: String = puzzles::util::input::get_ec_input(year, quest, 2);
         let instant = std::time::Instant::now();
         let result = puzzles::ec::$year::$quest::part2(&input);
         let elapsed = instant.elapsed();
 
         println!("    Part 2: {} - {} μs", result, elapsed.as_micros());
 
-        let input: String = puzzles::util::input::get_ec_input(2024, 1, 3);
+        let input: String = puzzles::util::input::get_ec_input(year, quest, 3);
         let instant = std::time::Instant::now();
         let result = puzzles::ec::$year::$quest::part3(&input);
         let elapsed = instant.elapsed();
