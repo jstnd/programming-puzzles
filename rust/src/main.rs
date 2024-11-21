@@ -64,6 +64,7 @@ fn print_aoc() {
     solution_aoc!(year2015, day03);
     solution_aoc!(year2015, day04);
     solution_aoc!(year2015, day05);
+    solution_aoc!(year2015, day06);
 }
 
 fn print_ec() {
