@@ -59,14 +59,21 @@ fn main() {
 
 fn print_aoc() {
     println!("========== Advent of Code ==========");
-    solution_aoc!(year2015, day01);
-    solution_aoc!(year2015, day02);
-    solution_aoc!(year2015, day03);
-    solution_aoc!(year2015, day04);
-    solution_aoc!(year2015, day05);
-    solution_aoc!(year2015, day06);
-    solution_aoc!(year2015, day07);
-    solution_aoc!(year2015, day08);
+
+    {
+        solution_aoc!(year2015, day01);
+        solution_aoc!(year2015, day02);
+        solution_aoc!(year2015, day03);
+        solution_aoc!(year2015, day04);
+        solution_aoc!(year2015, day05);
+        solution_aoc!(year2015, day06);
+        solution_aoc!(year2015, day07);
+        solution_aoc!(year2015, day08);
+    }
+
+    {
+        solution_aoc!(year2024, day01);
+    }
 }
 
 fn print_ec() {
