@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 pub fn part1(input: &str) -> u32 {
     let (mut left, mut right) = parse_lists(input);
     left.sort_unstable();
@@ -13,14 +11,10 @@ pub fn part1(input: &str) -> u32 {
 
 pub fn part2(input: &str) -> u32 {
     let (left, right) = parse_lists(input);
-
-    let frequencies = right.iter().fold(HashMap::new(), |mut map, element| {
-        *map.entry(element).or_insert(0) += 1;
-        map
-    });
+    let frequencies = crate::util::array::frequencies(&right);
 
     left.iter()
-        .map(|element| element * frequencies.get(element).unwrap_or(&0))
+        .map(|element| element * *frequencies.get(element).unwrap_or(&0) as u32)
         .sum()
 }
 

@@ -1,6 +1,7 @@
 #![feature(iter_array_chunks)]
 
 pub mod util {
+    pub mod array;
     pub mod input;
     pub mod parse;
     pub mod point;
