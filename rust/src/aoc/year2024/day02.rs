@@ -15,7 +15,9 @@ pub fn part2(input: &str) -> u16 {
             let levels = line.split_whitespace().map(|level| level.parse().unwrap());
 
             if let Some(index) = is_safe(levels.clone()) {
-                for i in (0..=index).rev() {
+                let start = if index > 2 { index - 2 } else { 0 };
+
+                for i in (start..=index).rev() {
                     let levels = levels
                         .clone()
                         .enumerate()
