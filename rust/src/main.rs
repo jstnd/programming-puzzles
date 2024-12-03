@@ -73,6 +73,7 @@ fn print_aoc() {
 
     {
         solution_aoc!(year2024, day01);
+        solution_aoc!(year2024, day02);
     }
 }
 
