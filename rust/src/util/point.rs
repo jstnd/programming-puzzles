@@ -14,6 +14,22 @@ impl Point {
     pub fn origin() -> Self {
         Self::new(0, 0)
     }
+
+    pub fn diagonal() -> impl Iterator<Item = Point> {
+        (-1..=1).flat_map(|x| {
+            (-1..=1)
+                .filter(move |&y| (x != 0 && y != 0))
+                .map(move |y| Point::new(x, y))
+        })
+    }
+
+    pub fn moore() -> impl Iterator<Item = Point> {
+        (-1..=1).flat_map(|x| {
+            (-1..=1)
+                .filter(move |&y| (x != 0 || y != 0))
+                .map(move |y| Point::new(x, y))
+        })
+    }
 }
 
 impl Add for Point {
