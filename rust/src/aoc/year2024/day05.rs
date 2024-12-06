@@ -20,7 +20,7 @@ pub fn part1(input: &str) -> u16 {
                 }
             }
 
-            pages[(pages.len() - 1) / 2] as u16
+            pages[pages.len() / 2] as u16
         })
         .sum()
 }
@@ -52,7 +52,7 @@ pub fn part2(input: &str) -> u16 {
                             });
 
                             // Then return the middle page number.
-                            return pages[(pages.len() - 1) / 2] as u16;
+                            return pages[pages.len() / 2] as u16;
                         }
                     }
                 }
