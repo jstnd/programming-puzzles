@@ -39,7 +39,7 @@ pub fn part1(input: &str) -> usize {
 
 pub fn part2(input: &str) -> usize {
     let (mut grid, mut guard) = parse_grid(input);
-    let mut positions = HashSet::new();
+    let mut positions = HashSet::with_capacity(5_000);
     let initial = guard;
 
     loop {
@@ -114,7 +114,7 @@ fn rotate(direction: u8) -> u8 {
 }
 
 fn is_loop(grid: &[Vec<u8>], mut guard: Guard) -> bool {
-    let mut turns = HashSet::new();
+    let mut turns = HashSet::with_capacity(500);
 
     loop {
         let next = guard.position + Point::from(guard.direction);
