@@ -1,6 +1,6 @@
 use std::ops::{Add, AddAssign};
 
-#[derive(Clone, Copy, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Default, Eq, PartialEq, Hash)]
 pub struct Point {
     pub x: i32,
     pub y: i32,
@@ -50,10 +50,10 @@ impl AddAssign for Point {
 impl From<u8> for Point {
     fn from(value: u8) -> Self {
         match value {
-            b'^' => Point::new(0, 1),
-            b'v' => Point::new(0, -1),
-            b'>' => Point::new(1, 0),
+            b'^' => Point::new(0, -1),
+            b'v' => Point::new(0, 1),
             b'<' => Point::new(-1, 0),
+            b'>' => Point::new(1, 0),
             _ => unreachable!(),
         }
     }
