@@ -60,12 +60,14 @@ pub fn part2(input: &str) -> u16 {
 fn parse(input: &str) -> (HashSet<(u8, u8)>, &str) {
     let (rules, updates) = input.split_once("\n\n").unwrap();
 
-    let rules = rules.lines().fold(HashSet::new(), |mut set, line| {
-        let (first, second) = line.split_once('|').unwrap();
-        set.insert((first.parse().unwrap(), second.parse().unwrap()));
+    let rules = rules
+        .lines()
+        .fold(HashSet::with_capacity(1_200), |mut set, line| {
+            let (first, second) = line.split_once('|').unwrap();
+            set.insert((first.parse().unwrap(), second.parse().unwrap()));
 
-        set
-    });
+            set
+        });
 
     (rules, updates)
 }
