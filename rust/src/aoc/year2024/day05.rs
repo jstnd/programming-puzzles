@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 pub fn part1(input: &str) -> u16 {
     let (rules, updates) = parse(input);
@@ -12,10 +12,8 @@ pub fn part1(input: &str) -> u16 {
                 for right in pages.iter().skip(i + 1) {
                     // Check if an ordering rule exists where the right
                     // page should be printed before the left page.
-                    if let Some(rule) = rules.get(right) {
-                        if rule.contains(left) {
-                            return 0;
-                        }
+                    if rules.contains(&(*right, *left)) {
+                        return 0;
                     }
                 }
             }
@@ -37,23 +35,19 @@ pub fn part2(input: &str) -> u16 {
                 for right in pages.iter().skip(i + 1) {
                     // Check if an ordering rule exists where the right
                     // page should be printed before the left page.
-                    if let Some(rule) = rules.get(right) {
-                        if rule.contains(left) {
-                            // For incorrectly-ordered updates, sort the pages
-                            // according to the given ordering rules.
-                            pages.sort_by(|a, b| {
-                                if let Some(rule) = rules.get(b) {
-                                    if rule.contains(a) {
-                                        return std::cmp::Ordering::Less;
-                                    }
-                                }
-
+                    if rules.contains(&(*right, *left)) {
+                        // For incorrectly-ordered updates, sort the pages
+                        // according to the given ordering rules.
+                        pages.sort_by(|a, b| {
+                            if rules.contains(&(*b, *a)) {
+                                std::cmp::Ordering::Less
+                            } else {
                                 std::cmp::Ordering::Greater
-                            });
+                            }
+                        });
 
-                            // Then return the middle page number.
-                            return pages[pages.len() / 2] as u16;
-                        }
+                        // Then return the middle page number.
+                        return pages[pages.len() / 2] as u16;
                     }
                 }
             }
@@ -63,19 +57,15 @@ pub fn part2(input: &str) -> u16 {
         .sum()
 }
 
-fn parse(input: &str) -> (HashMap<u8, HashSet<u8>>, &str) {
+fn parse(input: &str) -> (HashSet<(u8, u8)>, &str) {
     let (rules, updates) = input.split_once("\n\n").unwrap();
 
-    let rules = rules
-        .lines()
-        .fold(HashMap::<u8, HashSet<u8>>::new(), |mut map, line| {
-            let (first, second) = line.split_once('|').unwrap();
-            map.entry(first.parse().unwrap())
-                .or_default()
-                .insert(second.parse().unwrap());
+    let rules = rules.lines().fold(HashSet::new(), |mut set, line| {
+        let (first, second) = line.split_once('|').unwrap();
+        set.insert((first.parse().unwrap(), second.parse().unwrap()));
 
-            map
-        });
+        set
+    });
 
     (rules, updates)
 }
