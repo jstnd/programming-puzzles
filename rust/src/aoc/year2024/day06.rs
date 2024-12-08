@@ -26,21 +26,21 @@ pub fn part1(input: &str) -> usize {
                     b'#' => guard.direction = rotate(guard.direction),
                     _ => unreachable!(),
                 }
-            } else {
-                break;
+
+                continue;
             }
-        } else {
-            break;
         }
+
+        break;
     }
 
     positions.len()
 }
 
-pub fn part2(input: &str) -> usize {
+pub fn part2(input: &str) -> u32 {
     let (mut grid, mut guard) = parse_grid(input);
-    let mut positions = HashSet::with_capacity(5_000);
-    let initial = guard;
+    let mut positions = HashSet::with_capacity(10_000);
+    let mut obstacles = 0u32;
 
     loop {
         let next = guard.position + Point::from(guard.direction);
@@ -52,27 +52,28 @@ pub fn part2(input: &str) -> usize {
                         if !positions.contains(&next) {
                             grid[next.y as usize][next.x as usize] = b'#';
 
-                            if is_loop(&grid, initial) {
-                                positions.insert(next);
+                            if is_loop(&grid, guard) {
+                                obstacles += 1;
                             }
 
                             grid[next.y as usize][next.x as usize] = b'.';
                         }
 
                         guard.position = next;
+                        positions.insert(next);
                     }
                     b'#' => guard.direction = rotate(guard.direction),
                     _ => unreachable!(),
                 }
-            } else {
-                break;
+
+                continue;
             }
-        } else {
-            break;
         }
+
+        break;
     }
 
-    positions.len()
+    obstacles
 }
 
 fn parse_grid(input: &str) -> (Vec<Vec<u8>>, Guard) {
@@ -134,12 +135,12 @@ fn is_loop(grid: &[Vec<u8>], mut guard: Guard) -> bool {
                     }
                     _ => unreachable!(),
                 }
-            } else {
-                break;
+
+                continue;
             }
-        } else {
-            break;
         }
+
+        break;
     }
 
     false
