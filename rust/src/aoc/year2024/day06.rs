@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use rustc_hash::FxHashSet;
 
 use crate::util::point::Point;
 
@@ -10,7 +10,7 @@ struct Guard {
 
 pub fn part1(input: &str) -> usize {
     let (grid, mut guard) = parse_grid(input);
-    let mut positions = HashSet::with_capacity(10_000);
+    let mut positions = FxHashSet::with_capacity_and_hasher(10_000, Default::default());
     positions.insert(guard.position);
 
     loop {
@@ -23,7 +23,7 @@ pub fn part1(input: &str) -> usize {
                         guard.position = next;
                         positions.insert(next);
                     }
-                    b'#' => guard.direction = rotate(guard.direction),
+                    b'#' => guard.direction = turn(guard.direction),
                     _ => unreachable!(),
                 }
 
@@ -39,7 +39,7 @@ pub fn part1(input: &str) -> usize {
 
 pub fn part2(input: &str) -> u32 {
     let (mut grid, mut guard) = parse_grid(input);
-    let mut positions = HashSet::with_capacity(10_000);
+    let mut positions = FxHashSet::with_capacity_and_hasher(10_000, Default::default());
     let mut obstacles = 0u32;
 
     loop {
@@ -62,7 +62,7 @@ pub fn part2(input: &str) -> u32 {
                         guard.position = next;
                         positions.insert(next);
                     }
-                    b'#' => guard.direction = rotate(guard.direction),
+                    b'#' => guard.direction = turn(guard.direction),
                     _ => unreachable!(),
                 }
 
@@ -104,7 +104,7 @@ fn parse_grid(input: &str) -> (Vec<Vec<u8>>, Guard) {
     (grid, guard.unwrap())
 }
 
-fn rotate(direction: u8) -> u8 {
+fn turn(direction: u8) -> u8 {
     match direction {
         b'^' => b'>',
         b'>' => b'v',
@@ -115,7 +115,7 @@ fn rotate(direction: u8) -> u8 {
 }
 
 fn is_loop(grid: &[Vec<u8>], mut guard: Guard) -> bool {
-    let mut turns = HashSet::with_capacity(500);
+    let mut turns = FxHashSet::with_capacity_and_hasher(500, Default::default());
 
     loop {
         let next = guard.position + Point::from(guard.direction);
@@ -125,7 +125,7 @@ fn is_loop(grid: &[Vec<u8>], mut guard: Guard) -> bool {
                 match position {
                     b'.' => guard.position = next,
                     b'#' => {
-                        guard.direction = rotate(guard.direction);
+                        guard.direction = turn(guard.direction);
 
                         if turns.contains(&guard) {
                             return true;
