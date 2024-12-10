@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 pub fn part1(input: &str) -> u64 {
     input
         .lines()
@@ -11,7 +9,12 @@ pub fn part1(input: &str) -> u64 {
                 .map(|number| number.parse().unwrap())
                 .collect();
 
-            if is_true(result, &numbers, &[Operation::Add, Operation::Multiply]) {
+            if is_true(
+                result,
+                numbers[0],
+                &numbers[1..],
+                &[Operation::Add, Operation::Multiply],
+            ) {
                 return result;
             }
 
@@ -33,7 +36,8 @@ pub fn part2(input: &str) -> u64 {
 
             if is_true(
                 result,
-                &numbers,
+                numbers[0],
+                &numbers[1..],
                 &[Operation::Add, Operation::Multiply, Operation::Concat],
             ) {
                 return result;
@@ -50,27 +54,22 @@ enum Operation {
     Concat,
 }
 
-fn is_true(result: u64, numbers: &[u64], operations: &[Operation]) -> bool {
-    (0..numbers.len() - 1)
-        .map(|_| operations.iter())
-        .multi_cartesian_product()
-        .any(|ops| {
-            let mut current = numbers[0];
+fn is_true(result: u64, current: u64, numbers: &[u64], operations: &[Operation]) -> bool {
+    if current > result {
+        return false;
+    }
 
-            for i in 1..numbers.len() {
-                if current > result {
-                    return false;
-                }
+    operations.iter().any(|operation| {
+        let current = match operation {
+            Operation::Add => current + numbers[0],
+            Operation::Multiply => current * numbers[0],
+            Operation::Concat => current * 10u64.pow(numbers[0].ilog10() + 1) + numbers[0],
+        };
 
-                let number = numbers[i];
+        if numbers.len() == 1 {
+            return current == result;
+        }
 
-                current = match ops[i - 1] {
-                    Operation::Add => current + number,
-                    Operation::Multiply => current * number,
-                    Operation::Concat => current * 10u64.pow(number.ilog10() + 1) + number,
-                }
-            }
-
-            current == result
-        })
+        is_true(result, current, &numbers[1..], operations)
+    })
 }
