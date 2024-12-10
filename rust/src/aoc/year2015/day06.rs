@@ -1,7 +1,7 @@
 use crate::util::point::Point;
 
 pub fn part1(input: &str) -> i32 {
-    let mut lights = [[false; 1_000]; 1_000];
+    let mut lights = vec![[false; 1_000]; 1_000];
 
     for Instruction { action, start, end } in parse_instructions(input) {
         for y in start.y..=end.y {
