@@ -1,57 +1,41 @@
 pub fn part1(input: &str) -> u64 {
-    input
-        .lines()
-        .map(|line| {
-            let (result, numbers) = line.split_once(": ").unwrap();
-            let result: u64 = result.parse().unwrap();
-            let numbers: Vec<u64> = numbers
-                .split_whitespace()
-                .map(|number| number.parse().unwrap())
-                .collect();
-
-            if is_true(
-                result,
-                numbers[0],
-                &numbers[1..],
-                &[Operation::Add, Operation::Multiply],
-            ) {
-                return result;
-            }
-
-            0
-        })
-        .sum()
+    solve(
+        input,
+        &[Operation::Add, Operation::Multiply],
+    )
 }
 
 pub fn part2(input: &str) -> u64 {
-    input
-        .lines()
-        .map(|line| {
-            let (result, numbers) = line.split_once(": ").unwrap();
-            let result: u64 = result.parse().unwrap();
-            let numbers: Vec<u64> = numbers
-                .split_whitespace()
-                .map(|number| number.parse().unwrap())
-                .collect();
-
-            if is_true(
-                result,
-                numbers[0],
-                &numbers[1..],
-                &[Operation::Add, Operation::Multiply, Operation::Concat],
-            ) {
-                return result;
-            }
-
-            0
-        })
-        .sum()
+    solve(
+        input,
+        &[Operation::Add, Operation::Multiply, Operation::Concat],
+    )
 }
 
 enum Operation {
     Add,
     Multiply,
     Concat,
+}
+
+fn solve(input: &str, operations: &[Operation]) -> u64 {
+    input
+        .lines()
+        .map(|line| {
+            let (result, numbers) = line.split_once(": ").unwrap();
+            let result: u64 = result.parse().unwrap();
+            let numbers: Vec<u64> = numbers
+                .split_whitespace()
+                .map(|number| number.parse().unwrap())
+                .collect();
+
+            if is_true(result, numbers[0], &numbers[1..], operations) {
+                return result;
+            }
+
+            0
+        })
+        .sum()
 }
 
 fn is_true(result: u64, current: u64, numbers: &[u64], operations: &[Operation]) -> bool {
