@@ -27,6 +27,7 @@ pub mod aoc {
         pub mod day05;
         pub mod day06;
         pub mod day07;
+        pub mod day08;
     }
 }
 
