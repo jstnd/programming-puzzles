@@ -6,20 +6,20 @@ enum Block {
 }
 
 pub fn part1(input: &str) -> u64 {
-    let blocks = parse(input);
+    let disk = parse(input);
     let mut checksum = 0;
     let mut left = 0;
-    let mut right = blocks.len() - 1;
+    let mut right = disk.len() - 1;
 
     while left <= right {
-        checksum += match blocks[left] {
+        checksum += match disk[left] {
             Block::File(id, _) => left as u64 * id,
             Block::Free => {
-                while let Block::Free = blocks[right] {
+                while let Block::Free = disk[right] {
                     right -= 1;
                 }
 
-                if let Block::File(id, _) = blocks[right] {
+                if let Block::File(id, _) = disk[right] {
                     right -= 1;
                     left as u64 * id
                 } else {
