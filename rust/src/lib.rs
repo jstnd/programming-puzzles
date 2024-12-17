@@ -3,6 +3,7 @@
 pub mod util {
     pub mod array;
     pub mod input;
+    pub mod num;
     pub mod parse;
     pub mod point;
 }
@@ -30,6 +31,7 @@ pub mod aoc {
         pub mod day08;
         pub mod day09;
         pub mod day10;
+        pub mod day11;
     }
 }
 
