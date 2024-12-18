@@ -1,6 +1,6 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
-#[derive(Clone, Copy, Default, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Default, Eq, PartialEq, PartialOrd, Ord, Hash)]
 pub struct Point {
     pub x: i32,
     pub y: i32,
@@ -15,36 +15,52 @@ impl Point {
         Self::new(0, 0)
     }
 
-    pub fn diagonal() -> impl Iterator<Item = Point> {
+    pub fn up() -> Self {
+        Self::new(0, -1)
+    }
+
+    pub fn down() -> Self {
+        Self::new(0, 1)
+    }
+
+    pub fn left() -> Self {
+        Self::new(-1, 0)
+    }
+
+    pub fn right() -> Self {
+        Self::new(1, 0)
+    }
+
+    pub fn diagonal() -> impl Iterator<Item = Self> {
         (-1..=1).flat_map(|x| {
             (-1..=1)
                 .filter(move |&y| x != 0 && y != 0)
-                .map(move |y| Point::new(x, y))
+                .map(move |y| Self::new(x, y))
         })
     }
 
-    pub fn moore() -> impl Iterator<Item = Point> {
+    pub fn moore() -> impl Iterator<Item = Self> {
         (-1..=1).flat_map(|x| {
             (-1..=1)
                 .filter(move |&y| x != 0 || y != 0)
-                .map(move |y| Point::new(x, y))
+                .map(move |y| Self::new(x, y))
         })
     }
 
-    pub fn von_neumann() -> impl Iterator<Item = Point> {
+    pub fn von_neumann() -> impl Iterator<Item = Self> {
         (-1..=1).flat_map(|x| {
             (-1..=1)
                 .filter(move |&y| (x == 0) ^ (y == 0))
-                .map(move |y| Point::new(x, y))
+                .map(move |y| Self::new(x, y))
         })
     }
 }
 
 impl Add for Point {
-    type Output = Point;
+    type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
-        Point::new(self.x + rhs.x, self.y + rhs.y)
+        Self::new(self.x + rhs.x, self.y + rhs.y)
     }
 }
 
@@ -56,10 +72,10 @@ impl AddAssign for Point {
 }
 
 impl Sub for Point {
-    type Output = Point;
+    type Output = Self;
 
     fn sub(self, rhs: Self) -> Self::Output {
-        Point::new(self.x - rhs.x, self.y - rhs.y)
+        Self::new(self.x - rhs.x, self.y - rhs.y)
     }
 }
 
@@ -73,10 +89,22 @@ impl SubAssign for Point {
 impl From<u8> for Point {
     fn from(value: u8) -> Self {
         match value {
-            b'^' => Point::new(0, -1),
-            b'v' => Point::new(0, 1),
-            b'<' => Point::new(-1, 0),
-            b'>' => Point::new(1, 0),
+            b'^' => Self::up(),
+            b'v' => Self::down(),
+            b'<' => Self::left(),
+            b'>' => Self::right(),
+            _ => unreachable!(),
+        }
+    }
+}
+
+impl From<Point> for u8 {
+    fn from(value: Point) -> Self {
+        match value {
+            Point { x: 0, y: -1 } => b'^',
+            Point { x: 0, y: 1 } => b'v',
+            Point { x: -1, y: 0 } => b'<',
+            Point { x: 1, y: 0 } => b'>',
             _ => unreachable!(),
         }
     }
