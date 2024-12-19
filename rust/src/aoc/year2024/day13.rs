@@ -63,6 +63,9 @@ struct Machine {
 
 impl Machine {
     fn solve(&self) -> Option<(usize, usize)> {
+        // Uses Cramer's rule to solve the system of linear equations.
+        // https://en.wikipedia.org/wiki/Cramer%27s_rule#Explicit_formulas_for_small_systems
+
         let x = (self.p.0 * self.bb.1 - self.bb.0 * self.p.1)
             / (self.ba.0 * self.bb.1 - self.bb.0 * self.ba.1);
 
