@@ -1,6 +1,6 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
-#[derive(Clone, Copy, Default, Eq, PartialEq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, PartialOrd, Ord, Hash)]
 pub struct Point {
     pub x: i32,
     pub y: i32,
@@ -53,6 +53,14 @@ impl Point {
                 .filter(move |&y| (x == 0) ^ (y == 0))
                 .map(move |y| Self::new(x, y))
         })
+    }
+
+    pub fn manhattan_distance(&self, other: &Point) -> u32 {
+        self.x.abs_diff(other.x) + self.y.abs_diff(other.y)
+    }
+
+    pub fn opposite(&self) -> Self {
+        Self::new(-self.x, -self.y)
     }
 }
 
