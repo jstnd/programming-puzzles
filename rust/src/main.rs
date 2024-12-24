@@ -88,6 +88,7 @@ fn print_aoc() {
         solution_aoc!(year2024, day14);
         solution_aoc!(year2024, day15);
         //solution_aoc!(year2024, day16);
+        solution_aoc!(year2024, day18);
         solution_aoc!(year2024, day19);
         solution_aoc!(year2024, day22);
     }
