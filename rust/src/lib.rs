@@ -20,6 +20,10 @@ pub mod aoc {
         pub mod day08;
     }
 
+    pub mod year2016 {
+        pub mod day01;
+    }
+
     pub mod year2024 {
         pub mod day01;
         pub mod day02;
