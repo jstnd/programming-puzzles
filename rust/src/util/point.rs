@@ -127,10 +127,10 @@ impl SubAssign for Point {
 impl From<u8> for Point {
     fn from(value: u8) -> Self {
         match value {
-            b'^' => Self::up(),
-            b'v' => Self::down(),
-            b'<' => Self::left(),
-            b'>' => Self::right(),
+            b'^' | b'U' => Self::up(),
+            b'v' | b'D' => Self::down(),
+            b'<' | b'L' => Self::left(),
+            b'>' | b'R' => Self::right(),
             _ => unreachable!(),
         }
     }
