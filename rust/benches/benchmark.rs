@@ -45,6 +45,10 @@ mod aoc {
         benchmark_aoc!(year2016, day02);
     }
 
+    mod year2017 {
+        benchmark_aoc!(year2017, day01);
+    }
+
     mod year2024 {
         benchmark_aoc!(year2024, day01);
         benchmark_aoc!(year2024, day02);
