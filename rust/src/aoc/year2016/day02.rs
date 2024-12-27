@@ -30,7 +30,7 @@ fn solve(input: &str, keypad: &[Vec<char>], start: Point) -> String {
         line.bytes().for_each(|b| {
             let direction = Point::from(b);
 
-            if is_valid(&keypad, position + direction) {
+            if is_valid(keypad, position + direction) {
                 position += direction;
             }
         });
