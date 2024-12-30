@@ -32,6 +32,8 @@ pub mod aoc {
 
     pub mod year2019 {
         pub mod day01;
+        pub mod day02;
+        pub mod intcode;
     }
 
     pub mod year2024 {
