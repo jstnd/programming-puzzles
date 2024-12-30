@@ -16,7 +16,7 @@ pub fn part1(input: &str) -> u32 {
         position += Point::from(direction) * instruction[1..].parse::<usize>().unwrap();
     });
 
-    position.x.unsigned_abs() + position.y.unsigned_abs()
+    position.manhattan_distance(&Point::origin())
 }
 
 pub fn part2(input: &str) -> u32 {
@@ -35,14 +35,14 @@ pub fn part2(input: &str) -> u32 {
             position += Point::from(direction);
 
             if visited.contains(&position) {
-                return position.x.unsigned_abs() + position.y.unsigned_abs();
+                return position.manhattan_distance(&Point::origin());
             } else {
                 visited.insert(position);
             }
         }
     }
 
-    position.x.unsigned_abs() + position.y.unsigned_abs()
+    position.manhattan_distance(&Point::origin())
 }
 
 fn turn_left(direction: u8) -> u8 {
