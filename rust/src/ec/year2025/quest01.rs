@@ -1,54 +1,35 @@
-use std::cmp;
-
 pub fn part1(input: &str) -> &str {
-    let (names, instructions) = parse(input);
-    let mut name_pos: usize = 0;
+    let (names, steps) = parse(input);
+    let mut name_pos = 0;
 
-    for instruction in instructions {
-        name_pos = match instruction.direction {
-            'L' => cmp::max(0, (name_pos as i32) - (instruction.moves as i32)) as usize,
-            'R' => cmp::min(names.len() - 1, name_pos + instruction.moves),
-            _ => name_pos,
-        };
-    }
-
-    names[name_pos]
-}
-
-pub fn part2(input: &str) -> &str {
-    let (names, instructions) = parse(input);
-    let num_names = names.len() as i32;
-    let mut name_pos: i32 = 0;
-
-    for instruction in instructions {
-        name_pos = match instruction.direction {
-            'L' => (name_pos - instruction.moves as i32).rem_euclid(num_names),
-            'R' => (name_pos + instruction.moves as i32).rem_euclid(num_names),
-            _ => name_pos,
-        };
+    for step in steps {
+        name_pos += step;
+        name_pos = name_pos.clamp(0, names.len() as i32 - 1);
     }
 
     names[name_pos as usize]
 }
 
+pub fn part2(input: &str) -> &str {
+    let (names, steps) = parse(input);
+    let mut name_pos = steps.iter().sum::<i32>();
+    name_pos = name_pos.rem_euclid(names.len() as i32);
+
+    names[name_pos as usize]
+}
+
 pub fn part3(input: &str) -> &str {
-    let (mut names, instructions) = parse(input);
-    let num_names = names.len() as i32;
+    let (mut names, steps) = parse(input);
 
-    for instruction in instructions {
-        let name_pos = match instruction.direction {
-            'L' => (-(instruction.moves as i32)).rem_euclid(num_names),
-            'R' => (instruction.moves as i32).rem_euclid(num_names),
-            _ => 0,
-        };
-
+    for step in steps {
+        let name_pos = step.rem_euclid(names.len() as i32);
         names.swap(0, name_pos as usize);
     }
 
     names[0]
 }
 
-fn parse(input: &str) -> (Vec<&str>, Vec<Instruction>) {
+fn parse(input: &str) -> (Vec<&str>, Vec<i32>) {
     let (names, instructions) = input.split_once("\r\n\r\n").unwrap();
 
     (
@@ -56,20 +37,15 @@ fn parse(input: &str) -> (Vec<&str>, Vec<Instruction>) {
         instructions
             .split(",")
             .map(|instruction| {
-                let mut chars = instruction.chars();
-                let direction = chars.next().unwrap();
-                let moves: String = chars.collect();
+                let (direction, steps) = instruction.split_at(1);
+                let steps = steps.parse::<i32>().unwrap();
 
-                Instruction {
-                    direction,
-                    moves: moves.parse().unwrap(),
+                match direction {
+                    "L" => -steps,
+                    "R" => steps,
+                    _ => 0,
                 }
             })
             .collect(),
     )
-}
-
-struct Instruction {
-    pub direction: char,
-    pub moves: usize,
 }
