@@ -114,5 +114,12 @@ fn print_aoc() {
 
 fn print_ec() {
     println!("========== Everybody Codes ==========");
-    solution_ec!(year2024, quest01);
+
+    {
+        solution_ec!(year2024, quest01);
+    }
+
+    {
+        solution_ec!(year2025, quest01);
+    }
 }

@@ -66,4 +66,8 @@ pub mod ec {
     pub mod year2024 {
         pub mod quest01;
     }
+
+    pub mod year2025 {
+        pub mod quest01;
+    }
 }
