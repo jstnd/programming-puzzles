@@ -1,7 +1,7 @@
-use std::collections::HashMap;
+use rustc_hash::FxHashMap;
 
-pub fn frequencies<T: Eq + std::hash::Hash>(array: &[T]) -> HashMap<&T, usize> {
-    array.iter().fold(HashMap::new(), |mut map, element| {
+pub fn frequencies<T: Eq + std::hash::Hash>(array: &[T]) -> FxHashMap<&T, usize> {
+    array.iter().fold(FxHashMap::default(), |mut map, element| {
         *map.entry(element).or_default() += 1;
         map
     })
