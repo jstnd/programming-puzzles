@@ -8,5 +8,6 @@ dotenv = "0.15.0"
 fancy-regex = "0.14.0"
 itertools = "0.14.0"
 md-5 = "0.10.6"
+num = "0.4.3"
 reqwest = { version = "0.12", features = ["blocking"] }
 rustc-hash = "2.1.0"

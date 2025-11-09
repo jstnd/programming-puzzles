@@ -124,5 +124,6 @@ fn print_ec() {
         solution_ec!(year2025, quest02);
         solution_ec!(year2025, quest03);
         solution_ec!(year2025, quest04);
+        solution_ec!(year2025, quest05);
     }
 }
