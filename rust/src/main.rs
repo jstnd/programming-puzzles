@@ -1,5 +1,3 @@
-use puzzles::ec::year2025::quest03;
-
 macro_rules! solution_aoc {
     ($year:tt, $day:tt) => {
         let year = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
@@ -125,5 +123,6 @@ fn print_ec() {
         solution_ec!(year2025, quest01);
         solution_ec!(year2025, quest02);
         solution_ec!(year2025, quest03);
+        solution_ec!(year2025, quest04);
     }
 }
