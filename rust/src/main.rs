@@ -50,6 +50,36 @@ macro_rules! solution_ec_event {
     };
 }
 
+macro_rules! solution_ec_story {
+    ($story:tt, $quest:tt) => {
+        let story = puzzles::util::parse::extract_integer(stringify!($story)) as u16;
+        let quest = puzzles::util::parse::extract_integer(stringify!($quest)) as u8;
+
+        println!("{} - {}", stringify!($story), stringify!($quest));
+
+        let input: String = puzzles::util::input::get_ec_story_input(story, quest, 1);
+        let instant = std::time::Instant::now();
+        let result = puzzles::ec::$story::$quest::part1(&input);
+        let elapsed = instant.elapsed();
+
+        println!("    Part 1: {} - {} μs", result, elapsed.as_micros());
+
+        let input: String = puzzles::util::input::get_ec_story_input(story, quest, 2);
+        let instant = std::time::Instant::now();
+        let result = puzzles::ec::$story::$quest::part2(&input);
+        let elapsed = instant.elapsed();
+
+        println!("    Part 2: {} - {} μs", result, elapsed.as_micros());
+
+        let input: String = puzzles::util::input::get_ec_story_input(story, quest, 3);
+        let instant = std::time::Instant::now();
+        let result = puzzles::ec::$story::$quest::part3(&input);
+        let elapsed = instant.elapsed();
+
+        println!("    Part 3: {} - {} μs", result, elapsed.as_micros());
+    };
+}
+
 fn main() {
     dotenv::dotenv().ok();
 
@@ -125,5 +155,9 @@ fn print_ec() {
         solution_ec_event!(event2025, quest03);
         solution_ec_event!(event2025, quest04);
         solution_ec_event!(event2025, quest05);
+    }
+
+    {
+        solution_ec_story!(story01, quest01);
     }
 }

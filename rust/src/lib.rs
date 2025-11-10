@@ -74,4 +74,8 @@ pub mod ec {
         pub mod quest04;
         pub mod quest05;
     }
+
+    pub mod story01 {
+        pub mod quest01;
+    }
 }

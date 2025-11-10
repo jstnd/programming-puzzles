@@ -17,16 +17,6 @@ pub fn get_aoc_input(year: u16, day: u8) -> String {
     fs::read_to_string(path).unwrap()
 }
 
-pub fn get_ec_event_input(event: u16, quest: u8, part: u8) -> String {
-    let path = std::env::current_dir()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .join(format!("input/ec/event/{event}/{quest:02}-{part}.txt"));
-
-    fs::read_to_string(path).unwrap()
-}
-
 fn retrieve_aoc_input(file: &mut fs::File, year: u16, day: u8) {
     let url = get_aoc_input_url(year, day);
 
@@ -49,4 +39,24 @@ fn retrieve_aoc_input(file: &mut fs::File, year: u16, day: u8) {
 
 fn get_aoc_input_url(year: u16, day: u8) -> String {
     format!("https://adventofcode.com/{year}/day/{day}/input")
+}
+
+pub fn get_ec_event_input(event: u16, quest: u8, part: u8) -> String {
+    let path = std::env::current_dir()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .join(format!("input/ec/event/{event}/{quest:02}-{part}.txt"));
+
+    fs::read_to_string(path).unwrap()
+}
+
+pub fn get_ec_story_input(story: u16, quest: u8, part: u8) -> String {
+    let path = std::env::current_dir()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .join(format!("input/ec/story/{story:02}/{quest:02}-{part}.txt"));
+
+    fs::read_to_string(path).unwrap()
 }
