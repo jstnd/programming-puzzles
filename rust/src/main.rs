@@ -20,30 +20,30 @@ macro_rules! solution_aoc {
     };
 }
 
-macro_rules! solution_ec {
-    ($year:tt, $quest:tt) => {
-        let year = puzzles::util::parse::extract_integer(stringify!($year)) as u16;
+macro_rules! solution_ec_event {
+    ($event:tt, $quest:tt) => {
+        let event = puzzles::util::parse::extract_integer(stringify!($event)) as u16;
         let quest = puzzles::util::parse::extract_integer(stringify!($quest)) as u8;
 
-        println!("{} - {}", stringify!($year), stringify!($quest));
+        println!("{} - {}", stringify!($event), stringify!($quest));
 
-        let input: String = puzzles::util::input::get_ec_input(year, quest, 1);
+        let input: String = puzzles::util::input::get_ec_event_input(event, quest, 1);
         let instant = std::time::Instant::now();
-        let result = puzzles::ec::$year::$quest::part1(&input);
+        let result = puzzles::ec::$event::$quest::part1(&input);
         let elapsed = instant.elapsed();
 
         println!("    Part 1: {} - {} μs", result, elapsed.as_micros());
 
-        let input: String = puzzles::util::input::get_ec_input(year, quest, 2);
+        let input: String = puzzles::util::input::get_ec_event_input(event, quest, 2);
         let instant = std::time::Instant::now();
-        let result = puzzles::ec::$year::$quest::part2(&input);
+        let result = puzzles::ec::$event::$quest::part2(&input);
         let elapsed = instant.elapsed();
 
         println!("    Part 2: {} - {} μs", result, elapsed.as_micros());
 
-        let input: String = puzzles::util::input::get_ec_input(year, quest, 3);
+        let input: String = puzzles::util::input::get_ec_event_input(event, quest, 3);
         let instant = std::time::Instant::now();
-        let result = puzzles::ec::$year::$quest::part3(&input);
+        let result = puzzles::ec::$event::$quest::part3(&input);
         let elapsed = instant.elapsed();
 
         println!("    Part 3: {} - {} μs", result, elapsed.as_micros());
@@ -116,14 +116,14 @@ fn print_ec() {
     println!("========== Everybody Codes ==========");
 
     {
-        solution_ec!(year2024, quest01);
+        solution_ec_event!(event2024, quest01);
     }
 
     {
-        solution_ec!(year2025, quest01);
-        solution_ec!(year2025, quest02);
-        solution_ec!(year2025, quest03);
-        solution_ec!(year2025, quest04);
-        solution_ec!(year2025, quest05);
+        solution_ec_event!(event2025, quest01);
+        solution_ec_event!(event2025, quest02);
+        solution_ec_event!(event2025, quest03);
+        solution_ec_event!(event2025, quest04);
+        solution_ec_event!(event2025, quest05);
     }
 }

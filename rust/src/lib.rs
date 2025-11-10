@@ -63,11 +63,11 @@ pub mod aoc {
 }
 
 pub mod ec {
-    pub mod year2024 {
+    pub mod event2024 {
         pub mod quest01;
     }
 
-    pub mod year2025 {
+    pub mod event2025 {
         pub mod quest01;
         pub mod quest02;
         pub mod quest03;
