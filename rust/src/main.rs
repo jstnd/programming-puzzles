@@ -83,8 +83,8 @@ macro_rules! solution_ec_story {
 fn main() {
     dotenv::dotenv().ok();
 
-    //print_aoc();
-    print_ec();
+    print_aoc();
+    //print_ec();
 }
 
 fn print_aoc() {
@@ -139,6 +139,10 @@ fn print_aoc() {
         solution_aoc!(year2024, day22);
         solution_aoc!(year2024, day24);
         solution_aoc!(year2024, day25);
+    }
+
+    {
+        solution_aoc!(year2025, day01);
     }
 }
 

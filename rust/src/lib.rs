@@ -60,6 +60,10 @@ pub mod aoc {
         pub mod day24;
         pub mod day25;
     }
+
+    pub mod year2025 {
+        pub mod day01;
+    }
 }
 
 pub mod ec {
