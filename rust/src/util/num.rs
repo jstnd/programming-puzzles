@@ -28,8 +28,11 @@ where
     number.to_usize().unwrap_or(0).checked_ilog10().unwrap_or(0) as usize + 1
 }
 
-pub fn split(number: u64) -> (u64, u64) {
-    let divisor = 10u64.pow(len(number) as u32 / 2);
-
+pub fn split<T>(number: T) -> (usize, usize)
+where
+    T: num::Integer + num::Unsigned + num::ToPrimitive,
+{
+    let number = number.to_usize().unwrap_or(0);
+    let divisor = 10_usize.pow(len(number) as u32 / 2);
     (number / divisor, number % divisor)
 }

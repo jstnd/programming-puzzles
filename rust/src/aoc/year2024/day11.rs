@@ -10,7 +10,7 @@ pub fn part2(input: &str) -> usize {
     solve(input, 75)
 }
 
-fn parse(input: &str) -> Vec<u64> {
+fn parse(input: &str) -> Vec<usize> {
     input
         .split_whitespace()
         .map(|s| s.parse().unwrap())
@@ -27,7 +27,7 @@ fn solve(input: &str, blinks: usize) -> usize {
         .sum()
 }
 
-fn num_stones(number: u64, blinks: usize, cache: &mut FxHashMap<(u64, usize), usize>) -> usize {
+fn num_stones(number: usize, blinks: usize, cache: &mut FxHashMap<(usize, usize), usize>) -> usize {
     if blinks == 0 {
         return 1;
     } else if let Some(entry) = cache.get(&(number, blinks)) {
@@ -43,7 +43,7 @@ fn num_stones(number: u64, blinks: usize, cache: &mut FxHashMap<(u64, usize), us
     num_stones
 }
 
-fn blink(number: u64, blinks: usize) -> Vec<u64> {
+fn blink(number: usize, blinks: usize) -> Vec<usize> {
     let mut stones = vec![number];
 
     for _ in 0..blinks {
