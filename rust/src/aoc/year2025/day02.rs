@@ -6,15 +6,12 @@ use crate::util::num;
 
 pub fn part1(input: &str) -> usize {
     parse(input)
-        .map(|range| {
-            range
-                .filter(|id| {
-                    // Since we only have to find numbers that are made up of ONLY some sequence of digits repeated TWICE,
-                    // we can just split the number into two parts and check if the parts are equal
-                    let (left, right) = num::split(*id);
-                    left == right
-                })
-                .sum::<usize>()
+        .flatten()
+        .filter(|id| {
+            // Since we only have to find numbers that are made up of ONLY some sequence of digits repeated TWICE,
+            // we can just split the number into two parts and check if the parts are equal
+            let (left, right) = num::split(*id);
+            left == right
         })
         .sum()
 }
@@ -26,11 +23,8 @@ pub fn part2(input: &str) -> usize {
     let repeating = Regex::new("^(.+?)\\1+$").unwrap();
 
     parse(input)
-        .map(|range| {
-            range
-                .filter(|id| repeating.is_match(&id.to_string()).unwrap())
-                .sum::<usize>()
-        })
+        .flatten()
+        .filter(|id| repeating.is_match(&id.to_string()).unwrap())
         .sum()
 }
 
