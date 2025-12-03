@@ -53,8 +53,8 @@ pub fn part2(input: &str) -> usize {
 fn parse(input: &str) -> impl Iterator<Item = RangeInclusive<usize>> + use<'_> {
     input.split(",").map(|range| {
         let (left, right) = range.split_once("-").unwrap();
-        let left = left.trim().parse::<usize>().unwrap();
-        let right = right.trim().parse::<usize>().unwrap();
+        let left: usize = left.trim().parse().unwrap();
+        let right: usize = right.trim().parse().unwrap();
         left..=right
     })
 }
