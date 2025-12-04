@@ -43,7 +43,7 @@ fn get_largest_joltage(bank: &str, batteries: usize) -> usize {
         // Add the digit of the found battery to our list of digits.
         digits.push(chars[index]);
 
-        // Move the index forward for the start of the next window of chars.
+        // Move the index forward for the start of the next window.
         index += 1;
     }
 
