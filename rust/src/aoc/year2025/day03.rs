@@ -60,7 +60,7 @@ fn get_largest_index(chars: &[char]) -> usize {
         .iter()
         .enumerate()
         .rev()
-        .max_by_key(|(_, &value)| value)
+        .max_by_key(|(_, value)| *value)
         .unwrap()
         .0
 }
