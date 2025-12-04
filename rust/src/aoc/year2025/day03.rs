@@ -58,12 +58,12 @@ fn get_largest_index(chars: &[char]) -> usize {
     // => .rev() -> max_by_key(...) returns the last max element, so we need to iterate
     //              in reverse order as the last max element would then contain the smallest index
     // => .max_by_key(...) -> finds the last element with the max value in the slice
-    // => .map(...).unwrap() -> extracts the index from the found max value
+    // => .unwrap().0 -> extracts the index from the found max value
     chars
         .iter()
         .enumerate()
         .rev()
         .max_by_key(|(_, &value)| value)
-        .map(|(index, _)| index)
         .unwrap()
+        .0
 }
