@@ -1,15 +1,12 @@
 pub fn part1(input: &str) -> usize {
-    input.lines().map(|bank| get_largest_joltage(bank, 2)).sum()
+    input.lines().map(|bank| get_joltage(bank, 2)).sum()
 }
 
 pub fn part2(input: &str) -> usize {
-    input
-        .lines()
-        .map(|bank| get_largest_joltage(bank, 12))
-        .sum()
+    input.lines().map(|bank| get_joltage(bank, 12)).sum()
 }
 
-fn get_largest_joltage(bank: &str, batteries: usize) -> usize {
+fn get_joltage(bank: &str, batteries: usize) -> usize {
     let chars: Vec<char> = bank.chars().collect();
     let mut digits = Vec::new();
     let mut index = 0;
