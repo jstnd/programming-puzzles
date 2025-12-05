@@ -11,12 +11,12 @@ pub fn part2(input: &str) -> usize {
     let mut grid = parse(input);
     let mut removed = 0;
 
-    // Here, we'll want to continuously loop until we find no more removable rows.
+    // Here, we'll want to continuously loop until we find no more removable rolls.
     loop {
-        // Find any removable rows from the current grid.
+        // Find any removable rolls from the current grid.
         let removable_rolls = get_removable_rolls(&grid);
 
-        // If we found no removable rows, we can exit here.
+        // If we found no removable rolls, we can exit here.
         if removable_rolls.is_empty() {
             break;
         }
