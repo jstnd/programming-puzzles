@@ -4,7 +4,39 @@ const PAPER_ROLL: u8 = b'@';
 
 pub fn part1(input: &str) -> usize {
     let grid = parse(input);
-    let mut accessible = 0;
+    get_removable_rolls(&grid).len()
+}
+
+pub fn part2(input: &str) -> usize {
+    let mut grid = parse(input);
+    let mut removed = 0;
+
+    // Here, we'll want to continuously loop until we find no more removable rows.
+    loop {
+        // Find any removable rows from the current grid.
+        let removable_rolls = get_removable_rolls(&grid);
+
+        // If we found no removable rows, we can exit here.
+        if removable_rolls.is_empty() {
+            break;
+        }
+
+        // Remove any found removable rolls and increase our counter.
+        for roll in removable_rolls {
+            grid[roll.y as usize][roll.x as usize] = b'.';
+            removed += 1;
+        }
+    }
+
+    removed
+}
+
+fn parse(input: &str) -> Vec<Vec<u8>> {
+    input.lines().map(|line| line.bytes().collect()).collect()
+}
+
+fn get_removable_rolls(grid: &[Vec<u8>]) -> Vec<Point> {
+    let mut removable = Vec::new();
 
     for (y, row) in grid.iter().enumerate() {
         for (x, char) in row.iter().enumerate() {
@@ -13,59 +45,18 @@ pub fn part1(input: &str) -> usize {
             }
 
             let point = Point::new(x as i32, y as i32);
-            let rolls = Point::moore()
-                .filter(|neighbor| is_roll(&grid, point + *neighbor))
+            let neighbor_rolls = Point::moore()
+                .filter(|neighbor| is_roll(grid, point + *neighbor))
                 .count();
 
-            if rolls < 4 {
-                accessible += 1;
+            // A roll is only removable if less than 4 of its neighbors are rolls.
+            if neighbor_rolls < 4 {
+                removable.push(point);
             }
         }
     }
 
-    accessible
-}
-
-pub fn part2(input: &str) -> usize {
-    let mut grid = parse(input);
-    let mut to_remove = Vec::new();
-    let mut removed = 0;
-
-    loop {
-        for (y, row) in grid.iter().enumerate() {
-            for (x, char) in row.iter().enumerate() {
-                if *char != PAPER_ROLL {
-                    continue;
-                }
-
-                let point = Point::new(x as i32, y as i32);
-                let rolls = Point::moore()
-                    .filter(|neighbor| is_roll(&grid, point + *neighbor))
-                    .count();
-
-                if rolls < 4 {
-                    to_remove.push(point);
-                }
-            }
-        }
-
-        for point in to_remove.iter() {
-            grid[point.y as usize][point.x as usize] = b'.';
-        }
-
-        if to_remove.is_empty() {
-            break;
-        }
-
-        removed += to_remove.len();
-        to_remove.clear();
-    }
-
-    removed
-}
-
-fn parse(input: &str) -> Vec<Vec<u8>> {
-    input.lines().map(|line| line.bytes().collect()).collect()
+    removable
 }
 
 fn is_roll(grid: &[Vec<u8>], point: Point) -> bool {
