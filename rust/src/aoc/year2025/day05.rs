@@ -34,8 +34,8 @@ pub fn part2(input: &str) -> usize {
             // Also, since the ranges are inclusive, we need to add 1 after the subtraction is performed.
             let num_fresh = (range.high - std::cmp::max(max_high, range.low)) + 1;
 
-            // Update the max high if the current range's high is larger than what we've seen previously.
-            max_high = std::cmp::max(max_high, range.high + 1);
+            // Update the max high to the current range's high (plus 1 due to being inclusive).
+            max_high = range.high + 1;
 
             // Return the number of fresh IDs for this range.
             num_fresh
