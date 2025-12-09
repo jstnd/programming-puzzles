@@ -69,6 +69,6 @@ fn parse(input: &str) -> Vec<Point> {
         .collect()
 }
 
-fn area(lhs: &Point, rhs: &Point) -> usize {
-    (lhs.x.abs_diff(rhs.x) + 1) * (lhs.y.abs_diff(rhs.y) + 1)
+fn area(point1: &Point, point2: &Point) -> usize {
+    (point1.x.abs_diff(point2.x) + 1) * (point1.y.abs_diff(point2.y) + 1)
 }
