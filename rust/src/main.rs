@@ -90,68 +90,69 @@ fn main() {
 fn print_aoc() {
     println!("========== Advent of Code ==========");
 
-    {
-        solution_aoc!(year2015, day01);
-        solution_aoc!(year2015, day02);
-        solution_aoc!(year2015, day03);
-        solution_aoc!(year2015, day04);
-        solution_aoc!(year2015, day05);
-        solution_aoc!(year2015, day06);
-        solution_aoc!(year2015, day07);
-        solution_aoc!(year2015, day08);
-    }
+    // {
+    //     solution_aoc!(year2015, day01);
+    //     solution_aoc!(year2015, day02);
+    //     solution_aoc!(year2015, day03);
+    //     solution_aoc!(year2015, day04);
+    //     solution_aoc!(year2015, day05);
+    //     solution_aoc!(year2015, day06);
+    //     solution_aoc!(year2015, day07);
+    //     solution_aoc!(year2015, day08);
+    // }
 
-    {
-        solution_aoc!(year2016, day01);
-        solution_aoc!(year2016, day02);
-    }
+    // {
+    //     solution_aoc!(year2016, day01);
+    //     solution_aoc!(year2016, day02);
+    // }
 
-    {
-        solution_aoc!(year2017, day01);
-        solution_aoc!(year2017, day02);
-    }
+    // {
+    //     solution_aoc!(year2017, day01);
+    //     solution_aoc!(year2017, day02);
+    // }
 
     {
         solution_aoc!(year2019, day01);
         solution_aoc!(year2019, day02);
         solution_aoc!(year2019, day03);
+        solution_aoc!(year2019, day04);
     }
 
-    {
-        solution_aoc!(year2024, day01);
-        solution_aoc!(year2024, day02);
-        solution_aoc!(year2024, day03);
-        solution_aoc!(year2024, day04);
-        solution_aoc!(year2024, day05);
-        solution_aoc!(year2024, day06);
-        solution_aoc!(year2024, day07);
-        solution_aoc!(year2024, day08);
-        solution_aoc!(year2024, day09);
-        solution_aoc!(year2024, day10);
-        solution_aoc!(year2024, day11);
-        solution_aoc!(year2024, day12);
-        solution_aoc!(year2024, day13);
-        solution_aoc!(year2024, day14);
-        solution_aoc!(year2024, day15);
-        //solution_aoc!(year2024, day16);
-        solution_aoc!(year2024, day18);
-        solution_aoc!(year2024, day19);
-        solution_aoc!(year2024, day22);
-        solution_aoc!(year2024, day24);
-        solution_aoc!(year2024, day25);
-    }
+    // {
+    //     solution_aoc!(year2024, day01);
+    //     solution_aoc!(year2024, day02);
+    //     solution_aoc!(year2024, day03);
+    //     solution_aoc!(year2024, day04);
+    //     solution_aoc!(year2024, day05);
+    //     solution_aoc!(year2024, day06);
+    //     solution_aoc!(year2024, day07);
+    //     solution_aoc!(year2024, day08);
+    //     solution_aoc!(year2024, day09);
+    //     solution_aoc!(year2024, day10);
+    //     solution_aoc!(year2024, day11);
+    //     solution_aoc!(year2024, day12);
+    //     solution_aoc!(year2024, day13);
+    //     solution_aoc!(year2024, day14);
+    //     solution_aoc!(year2024, day15);
+    //     //solution_aoc!(year2024, day16);
+    //     solution_aoc!(year2024, day18);
+    //     solution_aoc!(year2024, day19);
+    //     solution_aoc!(year2024, day22);
+    //     solution_aoc!(year2024, day24);
+    //     solution_aoc!(year2024, day25);
+    // }
 
-    {
-        solution_aoc!(year2025, day01);
-        solution_aoc!(year2025, day02);
-        solution_aoc!(year2025, day03);
-        solution_aoc!(year2025, day04);
-        solution_aoc!(year2025, day05);
-        solution_aoc!(year2025, day06);
-        solution_aoc!(year2025, day07);
-        solution_aoc!(year2025, day08);
-        solution_aoc!(year2025, day09);
-    }
+    // {
+    //     solution_aoc!(year2025, day01);
+    //     solution_aoc!(year2025, day02);
+    //     solution_aoc!(year2025, day03);
+    //     solution_aoc!(year2025, day04);
+    //     solution_aoc!(year2025, day05);
+    //     solution_aoc!(year2025, day06);
+    //     solution_aoc!(year2025, day07);
+    //     solution_aoc!(year2025, day08);
+    //     solution_aoc!(year2025, day09);
+    // }
 }
 
 fn print_ec() {

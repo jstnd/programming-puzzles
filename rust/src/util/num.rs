@@ -8,7 +8,12 @@ where
     })
 }
 
-pub fn digits(mut number: u32) -> impl Iterator<Item = u8> {
+pub fn digits_rev<T>(number: T) -> impl Iterator<Item = u8>
+where
+    T: num::Integer + num::Unsigned + num::ToPrimitive,
+{
+    let mut number = number.to_usize().unwrap_or(0);
+
     std::iter::from_fn(move || {
         if number == 0 {
             return None;
