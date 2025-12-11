@@ -1,12 +1,7 @@
 use super::intcode;
 
-pub fn part1(input: &str) -> usize {
-    let mut program: Vec<usize> = input
-        .trim()
-        .split(',')
-        .map(|number| number.parse().unwrap())
-        .collect();
-
+pub fn part1(input: &str) -> isize {
+    let mut program = intcode::parse_program(input);
     program[1] = 12;
     program[2] = 2;
 
@@ -15,12 +10,8 @@ pub fn part1(input: &str) -> usize {
     emulator.memory(0)
 }
 
-pub fn part2(input: &str) -> usize {
-    let program: Vec<usize> = input
-        .trim()
-        .split(',')
-        .map(|number| number.parse().unwrap())
-        .collect();
+pub fn part2(input: &str) -> isize {
+    let program = intcode::parse_program(input);
 
     for noun in 0..100 {
         for verb in 0..100 {

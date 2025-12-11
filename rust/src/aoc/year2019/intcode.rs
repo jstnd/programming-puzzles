@@ -1,40 +1,195 @@
+use crate::util::num;
+
+const MAX_INSTRUCTION_LEN: usize = 5;
+
+pub fn parse_program(program: &str) -> Vec<isize> {
+    program
+        .trim()
+        .split(",")
+        .map(|number| number.parse().unwrap())
+        .collect()
+}
+
+#[derive(Default)]
 pub struct Emulator {
-    memory: Vec<usize>,
+    memory: Vec<isize>,
+    input: Vec<isize>,
+    output: Vec<isize>,
 }
 
 impl Emulator {
-    pub fn new(program: Vec<usize>) -> Self {
-        Self { memory: program }
+    pub fn new(program: Vec<isize>) -> Self {
+        Self {
+            memory: program,
+            ..Default::default()
+        }
+    }
+
+    pub fn with_input(program: Vec<isize>, input: Vec<isize>) -> Self {
+        Self {
+            memory: program,
+            input,
+            ..Default::default()
+        }
     }
 
     pub fn run(&mut self) {
         let mut ip = 0;
 
         loop {
-            match self.memory[ip] {
-                1 => {
-                    let address1 = self.memory[ip + 1];
-                    let address2 = self.memory[ip + 2];
-                    let output_address = self.memory[ip + 3];
-                    self.memory[output_address] = self.memory[address1] + self.memory[address2];
+            let instruction = self.instruction(ip);
 
-                    ip += 4;
+            match instruction.opcode {
+                Opcode::Add => {
+                    let result = instruction.parameters[0] + instruction.parameters[1];
+                    self.memory[instruction.parameters[2] as usize] = result;
                 }
-                2 => {
-                    let address1 = self.memory[ip + 1];
-                    let address2 = self.memory[ip + 2];
-                    let output_address = self.memory[ip + 3];
-                    self.memory[output_address] = self.memory[address1] * self.memory[address2];
-
-                    ip += 4;
+                Opcode::Multiply => {
+                    let result = instruction.parameters[0] * instruction.parameters[1];
+                    self.memory[instruction.parameters[2] as usize] = result;
                 }
-                99 => return,
+                Opcode::Input => {
+                    let input = self.input.pop().unwrap();
+                    self.memory[instruction.parameters[0] as usize] = input;
+                }
+                Opcode::Output => {
+                    let output = self.memory[instruction.parameters[0] as usize];
+                    self.output.push(output);
+                }
+                Opcode::Halt => return,
                 _ => unreachable!(),
             }
+
+            ip += instruction.parameters.len() + 1;
         }
     }
 
-    pub fn memory(&self, address: usize) -> usize {
+    pub fn memory(&self, address: usize) -> isize {
         *self.memory.get(address).unwrap_or(&0)
+    }
+
+    pub fn output(&self) -> &Vec<isize> {
+        &self.output
+    }
+
+    fn instruction(&self, address: usize) -> Instruction {
+        let digits = self.instruction_digits(address);
+        let opcode = digits[MAX_INSTRUCTION_LEN - 2] * 10 + digits[MAX_INSTRUCTION_LEN - 1];
+        let mut instruction = Instruction::new(Opcode::from(opcode));
+
+        let parameters = match instruction.opcode {
+            Opcode::Add => vec![
+                self.parameter(
+                    address + 1,
+                    ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 3]),
+                ),
+                self.parameter(
+                    address + 2,
+                    ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 4]),
+                ),
+                self.parameter(address + 3, ParameterMode::Output),
+            ],
+            Opcode::Multiply => vec![
+                self.parameter(
+                    address + 1,
+                    ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 3]),
+                ),
+                self.parameter(
+                    address + 2,
+                    ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 4]),
+                ),
+                self.parameter(address + 3, ParameterMode::Output),
+            ],
+            Opcode::Input => {
+                vec![self.parameter(address + 1, ParameterMode::Output)]
+            }
+            Opcode::Output => {
+                vec![self.parameter(address + 1, ParameterMode::Output)]
+            }
+            Opcode::Halt => {
+                vec![]
+            }
+            _ => unreachable!(),
+        };
+
+        instruction.parameters = parameters;
+        instruction
+    }
+
+    fn instruction_digits(&self, address: usize) -> [u8; MAX_INSTRUCTION_LEN] {
+        let mut digits = [0; MAX_INSTRUCTION_LEN];
+
+        num::digits_rev(self.memory[address] as usize)
+            .enumerate()
+            .for_each(|(i, digit)| {
+                digits[digits.len() - (i + 1)] = digit;
+            });
+
+        digits
+    }
+
+    fn parameter(&self, address: usize, mode: ParameterMode) -> isize {
+        match mode {
+            ParameterMode::Position => {
+                let position = self.memory[address];
+                self.memory[position as usize]
+            }
+            ParameterMode::Immediate | ParameterMode::Output => self.memory[address],
+            _ => unreachable!(),
+        }
+    }
+}
+
+#[derive(Debug, Default)]
+struct Instruction {
+    opcode: Opcode,
+    parameters: Vec<isize>,
+}
+
+impl Instruction {
+    fn new(opcode: Opcode) -> Self {
+        Self {
+            opcode,
+            ..Default::default()
+        }
+    }
+}
+
+#[derive(Debug, Default)]
+enum Opcode {
+    #[default]
+    Add,
+    Multiply,
+    Input,
+    Output,
+    Halt,
+}
+
+impl From<u8> for Opcode {
+    fn from(value: u8) -> Self {
+        match value {
+            1 => Self::Add,
+            2 => Self::Multiply,
+            3 => Self::Input,
+            4 => Self::Output,
+            99 => Self::Halt,
+            _ => unreachable!(),
+        }
+    }
+}
+
+enum ParameterMode {
+    Position,
+    Immediate,
+    Output,
+}
+
+impl From<u8> for ParameterMode {
+    fn from(value: u8) -> Self {
+        match value {
+            0 => Self::Position,
+            1 => Self::Immediate,
+            _ => unreachable!(),
+        }
     }
 }
