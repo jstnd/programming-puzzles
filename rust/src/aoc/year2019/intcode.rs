@@ -38,6 +38,7 @@ impl Emulator {
 
         loop {
             let instruction = self.instruction(ip);
+            let mut ip_modified = false;
 
             match instruction.opcode {
                 Opcode::Add => {
@@ -56,11 +57,35 @@ impl Emulator {
                     let output = self.memory[instruction.parameters[0] as usize];
                     self.output.push(output);
                 }
+                Opcode::JumpIfTrue => {
+                    if instruction.parameters[0] != 0 {
+                        ip_modified = true;
+                        ip = instruction.parameters[1] as usize;
+                    }
+                }
+                Opcode::JumpIfFalse => {
+                    if instruction.parameters[0] == 0 {
+                        ip_modified = true;
+                        ip = instruction.parameters[1] as usize;
+                    }
+                }
+                Opcode::LessThan => {
+                    let result = instruction.parameters[0] < instruction.parameters[1];
+                    self.memory[instruction.parameters[2] as usize] = result as isize;
+                }
+                Opcode::Equals => {
+                    let result = instruction.parameters[0] == instruction.parameters[1];
+                    self.memory[instruction.parameters[2] as usize] = result as isize;
+                }
                 Opcode::Halt => return,
                 _ => unreachable!(),
             }
 
-            ip += instruction.parameters.len() + 1;
+            ip += if ip_modified {
+                0
+            } else {
+                instruction.parameters.len() + 1
+            }
         }
     }
 
@@ -78,7 +103,7 @@ impl Emulator {
         let mut instruction = Instruction::new(Opcode::from(opcode));
 
         let parameters = match instruction.opcode {
-            Opcode::Add => vec![
+            Opcode::Add | Opcode::Multiply | Opcode::LessThan | Opcode::Equals => vec![
                 self.parameter(
                     address + 1,
                     ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 3]),
@@ -89,7 +114,10 @@ impl Emulator {
                 ),
                 self.parameter(address + 3, ParameterMode::Output),
             ],
-            Opcode::Multiply => vec![
+            Opcode::Input | Opcode::Output => {
+                vec![self.parameter(address + 1, ParameterMode::Output)]
+            }
+            Opcode::JumpIfTrue | Opcode::JumpIfFalse => vec![
                 self.parameter(
                     address + 1,
                     ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 3]),
@@ -98,17 +126,8 @@ impl Emulator {
                     address + 2,
                     ParameterMode::from(digits[MAX_INSTRUCTION_LEN - 4]),
                 ),
-                self.parameter(address + 3, ParameterMode::Output),
             ],
-            Opcode::Input => {
-                vec![self.parameter(address + 1, ParameterMode::Output)]
-            }
-            Opcode::Output => {
-                vec![self.parameter(address + 1, ParameterMode::Output)]
-            }
-            Opcode::Halt => {
-                vec![]
-            }
+            Opcode::Halt => vec![],
             _ => unreachable!(),
         };
 
@@ -162,6 +181,10 @@ enum Opcode {
     Multiply,
     Input,
     Output,
+    JumpIfTrue,
+    JumpIfFalse,
+    LessThan,
+    Equals,
     Halt,
 }
 
@@ -172,6 +195,10 @@ impl From<u8> for Opcode {
             2 => Self::Multiply,
             3 => Self::Input,
             4 => Self::Output,
+            5 => Self::JumpIfTrue,
+            6 => Self::JumpIfFalse,
+            7 => Self::LessThan,
+            8 => Self::Equals,
             99 => Self::Halt,
             _ => unreachable!(),
         }
