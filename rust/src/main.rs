@@ -143,17 +143,18 @@ fn print_aoc() {
     //     solution_aoc!(year2024, day25);
     // }
 
-    // {
-    //     solution_aoc!(year2025, day01);
-    //     solution_aoc!(year2025, day02);
-    //     solution_aoc!(year2025, day03);
-    //     solution_aoc!(year2025, day04);
-    //     solution_aoc!(year2025, day05);
-    //     solution_aoc!(year2025, day06);
-    //     solution_aoc!(year2025, day07);
-    //     solution_aoc!(year2025, day08);
-    //     solution_aoc!(year2025, day09);
-    // }
+    {
+        solution_aoc!(year2025, day01);
+        solution_aoc!(year2025, day02);
+        solution_aoc!(year2025, day03);
+        solution_aoc!(year2025, day04);
+        solution_aoc!(year2025, day05);
+        solution_aoc!(year2025, day06);
+        solution_aoc!(year2025, day07);
+        solution_aoc!(year2025, day08);
+        solution_aoc!(year2025, day09);
+        solution_aoc!(year2025, day10);
+    }
 }
 
 fn print_ec() {
