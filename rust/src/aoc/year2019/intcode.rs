@@ -78,7 +78,6 @@ impl Emulator {
                     self.memory[instruction.parameters[2] as usize] = result as isize;
                 }
                 Opcode::Halt => return,
-                _ => unreachable!(),
             }
 
             ip += if ip_modified {
@@ -102,7 +101,7 @@ impl Emulator {
         let opcode = digits[MAX_INSTRUCTION_LEN - 2] * 10 + digits[MAX_INSTRUCTION_LEN - 1];
         let mut instruction = Instruction::new(Opcode::from(opcode));
 
-        let parameters = match instruction.opcode {
+        instruction.parameters = match instruction.opcode {
             Opcode::Add | Opcode::Multiply | Opcode::LessThan | Opcode::Equals => vec![
                 self.parameter(
                     address + 1,
@@ -128,10 +127,8 @@ impl Emulator {
                 ),
             ],
             Opcode::Halt => vec![],
-            _ => unreachable!(),
         };
 
-        instruction.parameters = parameters;
         instruction
     }
 
@@ -154,7 +151,6 @@ impl Emulator {
                 self.memory[position as usize]
             }
             ParameterMode::Immediate | ParameterMode::Output => self.memory[address],
-            _ => unreachable!(),
         }
     }
 }
