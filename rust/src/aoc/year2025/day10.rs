@@ -1,10 +1,7 @@
-use std::collections::VecDeque;
-
 use itertools::{Itertools, Position};
 
-pub fn part1(input: &str) -> u16 {
-    let machines = parse(input);
-    machines.iter().map(fewest_light_presses).sum()
+pub fn part1(input: &str) -> usize {
+    parse(input).iter().map(fewest_light_presses).sum()
 }
 
 pub fn part2(input: &str) -> usize {
@@ -66,23 +63,22 @@ fn parse(input: &str) -> Vec<Machine> {
         .collect()
 }
 
-fn fewest_light_presses(machine: &Machine) -> u16 {
-    let mut queue = VecDeque::new();
-    queue.push_back((0_u16, 1_u16));
+fn fewest_light_presses(machine: &Machine) -> usize {
+    machine
+        .buttons
+        .iter()
+        .powerset()
+        .find(|button_group| {
+            //
+            let lights = button_group.iter().fold(0, |acc, button| {
+                //
+                acc ^ *button
+            });
 
-    while let Some((lights, presses)) = queue.pop_front() {
-        for button_group in &machine.buttons {
-            let next = lights ^ button_group;
-
-            if next == machine.lights {
-                return presses;
-            } else {
-                queue.push_back((next, presses + 1));
-            }
-        }
-    }
-
-    unreachable!()
+            lights == machine.lights
+        })
+        .map(|button_group| button_group.len())
+        .unwrap()
 }
 
 fn fewest_joltage_presses(machine: &Machine) -> usize {
